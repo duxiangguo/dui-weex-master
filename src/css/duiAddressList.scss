@@ -1,0 +1,21 @@
+@import "base";
+
+.address-list-div{
+    position: fixed ;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+}
+.address-add-div{
+  position: absolute  ;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-top-color: #f8f8f8;
+}
+.address-item-div{
+  width: 750px;
+}

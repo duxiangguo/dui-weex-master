@@ -1,0 +1,18 @@
+@import "base";
+
+.field-top-border{
+  border-top-color: #c6cfdc;
+  border-top-width: 1px;
+}
+.field-bottom-border{
+  border-bottom-color: #c6cfdc;
+  border-bottom-width: 1px;
+}
+.required{
+  position:absolute;
+  left: 8px;
+  top:40px;
+}
+.code-radius{
+  border-radius: 10px;
+}
