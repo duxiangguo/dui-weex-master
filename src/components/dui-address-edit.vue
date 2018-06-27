@@ -1,13 +1,15 @@
 <template>
-    <div style="margin-top: 100px">
-        <dui-field label="收货人"  v-model="consignee" formType="input" placeholder="收货人姓名" required="true" rightIcon="&#xe6B7;" @rightClick="checkContacts"></dui-field>
-        <dui-field label="联系电话" v-model="telphone" formType="input" placeholder="手机或固定电话" inputType="number" required="true"></dui-field>
-        <dui-field label="收件地区" formType="text" :content="address" @change="checkAddress" required="true"></dui-field>
-        <dui-field label="详细地址"  v-model="dictAddress" formType="input" placeholder="如街道、楼层、门牌号等" required="true"></dui-field>
-        <dui-field label="邮政编码" v-model="Postcodes" formType="input" placeholder="邮政编码"></dui-field>
+    <div>
+        <dui-field label="收货人"  v-model="data.consignee" formType="input" placeholder="收货人姓名" required="true" rightIcon="&#xe6B7;" @rightClick="checkContacts"></dui-field>
+        <dui-field label="联系电话" v-model="data.telphone" formType="input" placeholder="手机或固定电话" inputType="number" required="true"></dui-field>
+        <dui-field label="收件地区" formType="text" :content="data.address" @change="checkAddress" required="true"></dui-field>
+        <dui-field label="详细地址"  v-model="data.dictAddress" formType="input" placeholder="如街道、楼层、门牌号等" required="true"></dui-field>
+        <dui-field label="邮政编码" v-model="data.Postcodes" formType="input" placeholder="邮政编码"></dui-field>
         <dui-field label="设为默认" formType="switch" @change="setDefault"></dui-field>
+
         <dui-address-selector :show="show" :province="province" :city="city" :area="area" :tabItems="tabItems" :currentTab="currentTab" @close="close" @selectArea="selectArea" @checkedArea="checkedArea" ></dui-address-selector>
-        <dui-button @click="submit" :btnColor="btnColor" :disabled="disabled" :text="text" :textColor="textColor"></dui-button>
+        <dui-button @click="submit" :btnColor="addButtonInfo.btnColor" :disabled="addButtonInfo.disabled" :text="addButtonInfo.text" :textColor="addButtonInfo.textColor"></dui-button>
+        <dui-button @click="deleteClick" v-if="showDelButton" :btnColor="delButtonInfo.btnColor" :disabled="delButtonInfo.disabled" :text="delButtonInfo.text" :textColor="delButtonInfo.textColor"></dui-button>
     </div>
 </template>
 
@@ -20,21 +22,27 @@
             duiField,duiAddressSelector,duiButton
         },
         props:{
-            btnColor:{
-                type:String,
-                default:'#ff4e24'
+            addButtonInfo:{
+                type:Object,
+                default:{
+                    btnColor:'#ff4e24',
+                    disabled:false,
+                    text:'保存',
+                    textColor:'#fff'
+                }
             },
-            textColor:{
-                type:String,
-                default:'#fff'
+            delButtonInfo:{
+                type:Object,
+                default:{
+                    btnColor:'#fafafa',
+                    disabled:false,
+                    text:'删除',
+                    textColor:''
+                }
             },
-            disabled:{
+            showDelButton:{
                 type:Boolean,
                 default:false
-            },
-            text:{
-                type:String,
-                default:'确认'
             },
             province:{
                 type: Object,
@@ -55,19 +63,23 @@
             currentTab:{
                 type: Number,
                 default: 0
+            },
+            data:{
+                type:Object,
+                default:{
+                    address:'请选择收件地区',
+                    addressId:'',
+                    consignee:'',
+                    telphone:'',
+                    dictAddress:'',
+                    Postcodes:'',
+                    isDefault:true
+                }
             }
         },
         data() {
             return {
-                show:false,
-                address:'请选择收件地区',
-                addressId:'',
-                consignee:'',
-                telphone:'',
-                dictAddress:'',
-                Postcodes:'',
-                isDefault:true,
-
+                show:false
             }
         },
         mounted(){
@@ -91,27 +103,31 @@
                 this.address=items[0].title+'-'+items[1].title+'-'+items[2].title
             },
             setDefault(value){
-                this.isDefault=value
+                this.data.isDefault=value
             },
             checkContacts(){
                 this.$coms.contacts().then(data => {
                     console.log("获取联系人信息成功", data)
+
                 }, error => {
                     console.log("获取失败", error)
                 })
             },
             submit(){
-                if(!this.consignee){
+                if(!this.data.consignee){
                     this.showMessage('收货人姓名不能为空')
-                }else if(!this.telphone){
+                }else if(!this.data.telphone){
                     this.showMessage('收货人电话不能为空')
-                }else if(!this.addressId){
+                }else if(!this.data.addressId){
                     this.showMessage('收件地区不能为空')
-                }else if(!this.dictAddress){
+                }else if(!this.data.dictAddress){
                     this.showMessage('详细地址不能为空')
                 }else{
-                   this.$emit('addAddress',this.consignee,this.telphone,this.address,this.addressId,this.dictAddress,this.Postcodes,this.isDefault)
+                    this.$emit('addAddress',this.data)
                 }
+            },
+            deleteClick(){
+                this.$emit('deleteClick')
             },
             showMessage(message){
                 this.$notice.toast({

@@ -1,8 +1,8 @@
 <template>
     <div class="address-list-div">
         <div class="height150 address-item-div flex-row row-center-left"  v-for="(itmes,index) in list" >
-            <text class="width150 text-align-center iconfont font-size55"  :style="{'color':index===0?color:voidColor}"  :value="index===0?decode('&#xe656'):decode('&#xe6d7')"></text>
-            <div @click="checkAddress(itmes.id)">
+            <text class="width150 text-align-center iconfont font-size55"  :style="{'color':index===showIndex?color:voidColor}"  :value="index===showIndex?decode('&#xe656'):decode('&#xe6d7')"></text>
+            <div @click="checkAddress(itmes,index)">
                 <div class="flex-row margin-bottom10 width450">
                     <text class="font-size35" >{{itmes.name}}</text>
                     <text class="font-size35" >，</text>
@@ -10,7 +10,7 @@
                 </div>
                 <text class="width450  text-lines2" >收货地址:{{itmes.address}}</text>
             </div>
-            <text class="width150 text-align-center iconfont font-size55 text-color-gay" @click="editAddress(itmes.id)">&#xe759;</text>
+            <text class="width150 text-align-center iconfont font-size55 text-color-gay" @click="editAddress(itmes)">&#xe759;</text>
         </div>
         <div class="height100 address-add-div flex-row row-center-left" @click="addAddress">
             <text class="width150 text-align-center iconfont font-size55"  style="color: #5da3f6" >&#xe6d8;</text>
@@ -31,6 +31,10 @@
             voidColor:{
                 type: String,
                 default:'#7c7c7c'
+            },
+            showIndex:{
+                type:Number,
+                default:0
             },
             list:{
                 type: Object,
@@ -57,13 +61,15 @@
                 }
             },
             addAddress(){
+                this.$emit('addAddress')
 
             },
-            checkAddress(addressId){
-
+            checkAddress(value,index){
+                this.showIndex=index;
+                this.$emit('checkAddress',value)
             },
-            editAddress(addressId){
-
+            editAddress(value){
+                this.$emit('editAddress',value)
             }
 
         }
