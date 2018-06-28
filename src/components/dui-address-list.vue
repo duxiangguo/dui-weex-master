@@ -1,7 +1,9 @@
 <template>
     <div class="address-list-div">
         <div class="height150 address-item-div flex-row row-center-left"  v-for="(itmes,index) in list" >
-            <text class="width150 text-align-center iconfont font-size55"  :style="{'color':index===showIndex?color:voidColor}"  :value="index===showIndex?decode('&#xe656'):decode('&#xe6d7')"></text>
+            <div  class="width150  center " @click="editAddress(itmes)">
+                <dui-icon :name="index===showIndex?'&#xe6cf':'&#xe664'"  :iconStyle="{'color':index===showIndex?color:voidColor}"></dui-icon>
+            </div>
             <div @click="checkAddress(itmes,index)">
                 <div class="flex-row margin-bottom10 width450">
                     <text class="font-size35" >{{itmes.name}}</text>
@@ -10,18 +12,28 @@
                 </div>
                 <text class="width450  text-lines2" >收货地址:{{itmes.address}}</text>
             </div>
-            <text class="width150 text-align-center iconfont font-size55 text-color-gay" @click="editAddress(itmes)">&#xe759;</text>
+            <div  class="width150  center " @click="editAddress(itmes)">
+                <dui-icon name="&#xe71a;"  :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+            </div>
         </div>
         <div class="height100 address-add-div flex-row row-center-left" @click="addAddress">
-            <text class="width150 text-align-center iconfont font-size55"  style="color: #5da3f6" >&#xe6d8;</text>
-            <text class="width450 font-size35" >新增收货地址</text>
-            <text class="width150 text-align-center iconfont font-size45 text-color-gay" >&#xe6a3;</text>
+            <div  class="width150 height100 center " >
+                <dui-icon name="&#xe6cf;"  :iconStyle="{color:'#5da3f6'}"></dui-icon>
+            </div>
+            <text class="width450 font-size35 " >新增收货地址</text>
+            <div  class="width150 height100 center " >
+                <dui-icon name="&#xe643" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import duiIcon from'./dui-icon'
     module.exports = {
+        components:{
+            duiIcon
+        },
         props: {
             color:{
                 type: String,
@@ -38,28 +50,14 @@
             },
             list:{
                 type: Object,
-                default:[{id:'',name:'张三',telphone:'17603666581',address:'浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'}]
+                default:[{id:'',name:'张三',telphone:'17603666581',address:'黑龙江省哈尔滨市南岗区中兴大道109号'}]
             }
         },
         data() {
             return {
             }
         },
-        mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
-        },
         methods: {
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
-            },
             addAddress(){
                 this.$emit('addAddress')
 

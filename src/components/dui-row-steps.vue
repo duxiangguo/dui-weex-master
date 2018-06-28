@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex-row  row-center-left margin-left40 margin-bottom20" v-if="show">
-            <text class="iconfont" :style="{'fontSize':describeBar.iconSize,'color':describeBar.iconColor}" :value="decode(describeBar.icon)" ></text>
+            <dui-icon :name="describeBar.icon" :iconStyle="{'fontSize':describeBar.iconSize,'color':describeBar.iconColor}" ></dui-icon>
             <div class="margin-left20">
                 <text>{{describeBar.title}}</text>
                 <text :style="{'color': describeBar.descriptionColor}">{{describeBar.description}}</text>
@@ -29,7 +29,11 @@
 </template>
 
 <script>
+    import duiIcon from'./dui-icon';
     module.exports = {
+        components:{
+            duiIcon
+        },
         props: {
             show:{
                 type: Boolean,
@@ -37,7 +41,7 @@
             },
             describeBar:{
                 type: Object,
-                default:{icon:'&#xe671',
+                default:{icon:'&#xe6dd;',
                     iconSize:100,
                     iconColor:'#ff6600',
                     title:'标题',
@@ -63,18 +67,13 @@
         },
         data() {
             return {
-                rateIcon:'&#xe90F',
-                selectRateIcon:'&#xe656',
+                rateIcon:'&#xe6c6;',
+                selectRateIcon:'&#xe6cf;',
                 lineWidth:'160px',
                 count:4
             }
         },
         mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
             this.count=this.list.length
         },
         computed: {
@@ -83,13 +82,6 @@
             }
         },
         methods: {
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
-            }
         }
     }
 </script>

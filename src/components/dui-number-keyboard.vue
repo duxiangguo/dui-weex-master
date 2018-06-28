@@ -7,14 +7,14 @@
                         <div class="flex1 center item" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetItemClick(item.value,indexs,index,DigitalUpperPart)">
                             <div>
-                                <text class="font-size55 iconfont"  :value="decode(item.title)"></text>
+                                <dui-icon :name="item.title"></dui-icon>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="height200 flex1 center item "
                      @click="actionsheetItemClick('delete')">
-                    <text class="iconfont" style="font-size: 60px;">&#xe90C;</text>
+                    <dui-icon name="&#xe6c0" size="60px"></dui-icon>
                 </div>
             </div>
             <div  class="flex-row">
@@ -23,7 +23,7 @@
                         <div class="flex1 center item " v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetItemClick(item.value,indexs,index,DigitalLowerPart)">
                             <div>
-                                <text class="font-size55 iconfont"   :value="decode(item.title)"></text>
+                                <dui-icon :name="item.title"></dui-icon>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="flex1 center item" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                          @click="actionsheetItemClick(item.value,indexs,index,DigitalPart)">
                         <div>
-                            <text class="font-size55 iconfont"  :value="decode(item.title)"></text>
+                            <dui-icon :name="item.title"></dui-icon>
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,11 @@
 </template>
 
 <script>
-    import duiPopup from './dui-popup.vue'
+    import duiPopup from './dui-popup';
+    import duiIcon from'./dui-icon';
     module.exports = {
         components: {
-            duiPopup
+            duiPopup,duiIcon
         },
         props: {
             show: {
@@ -118,11 +119,6 @@
             }
         },
         mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
             if(this.theme==='custom'){
                 this.height=480
             }else{
@@ -146,13 +142,6 @@
                     this.$emit('input', item);
                 }
 
-            },
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
             },
             closeNumberKeyboard(){
                 this.$emit('close');

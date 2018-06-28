@@ -2,7 +2,7 @@
         <div class="width750 height100 flex-row dui-goods-div">
             <div class = "height100 flex1 center " v-for="items in leftItems" @click="leftItemsClick(items.leftClick)">
                 <div class="height100 center width115" >
-                    <text class="iconfont font-size45 " :value="decode(items.leftIcon)"  :style="{'color':items.leftIconColor}"></text>
+                    <dui-icon size="45px" :name="items.leftIcon" :iconStyle="{'color':items.leftIconColor}"></dui-icon>
                     <text :style="{'color':items.leftTitleColor}" >{{items.leftTitle}}</text>
                     <div class = "dui-goods-point-div background-color-white center" v-if="items.leftPointNumber>0">
                         <text class="font-size22 text-color-red">{{items.leftPointNumber}}</text>
@@ -15,13 +15,17 @@
         </div>
 </template>
 <script>
+    import duiIcon from'./dui-icon';
     module.exports ={
+        components:{
+            duiIcon
+        },
         props:{
             leftItems:{
               type:Object,
-              default:[{leftIcon:'&#xe676;',leftIconColor:'',leftTitle:'店铺',leftTitleColor:'',leftPointNumber:0,leftClick:'store'}
-              ,{leftIcon:'&#xe64c;',leftIconColor:'',leftTitle:'收藏',leftTitleColor:'',leftPointNumber:0,leftClick:'collection'},
-             {leftIcon:'&#xe6af;',leftIconColor:'',leftTitle:'购物车',leftTitleColor:'',leftPointNumber:1,leftClick:'shopCart'}]
+              default:[{leftIcon:'&#xe6df;',leftIconColor:'',leftTitle:'店铺',leftTitleColor:'',leftPointNumber:0,leftClick:'store'}
+              ,{leftIcon:'&#xe68a;',leftIconColor:'',leftTitle:'收藏',leftTitleColor:'',leftPointNumber:0,leftClick:'collection'},
+             {leftIcon:'&#xe64b;',leftIconColor:'',leftTitle:'购物车',leftTitleColor:'',leftPointNumber:1,leftClick:'shopCart'}]
             },
             rightItems:{
               type:Object,
@@ -29,21 +33,7 @@
                   {btnTitle:'立即购买',btnTitleColor:'#ffffff',btnColor:'#ff0000',rightClick:'buyShopNow'}]
             }
         },
-        beforeCreate() {
-            var domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                fontFamily: 'iconfont',
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
-        },
         methods:{
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
-            },
             leftItemsClick(leftClick){
                 this.$emit(leftClick)
             },

@@ -2,7 +2,7 @@
     <div>
         <div class="flex-row background-color-white" :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='input'">
             <div class="height100 width200 flex-row center padding10" >
-                <text class="text-align-center iconfont font-size35"  :style="{'color':requiredColor}" :value="(!disabled&&required)?decode('*'):decode('')"></text>
+                <text class="text-align-center iconfont font-size35"  :style="{'color':requiredColor}" :value="(!disabled&&required)?'*':''"></text>
                 <div class="width140 ">
                     <text class="text-align-center iconfont font-size35">{{label}}</text>
                 </div>
@@ -11,12 +11,12 @@
                 <input class="height100 width450 font-size35" :style="{'color':inputColor}" :maxlength="inputMaxlength" :placeholder="placeholder" :disabled="disabled" :type="inputType" :value="inputValue" @focus="focus" @input="input" @change="change" />
             </div>
             <div class="height100  width70 flex-row row-center-left" v-if="rightIcon" @click="rightClick">
-                <text class=" text-align-center iconfont font-size45 text-color-gay" :value="decode(rightIcon)"></text>
+                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
             </div>
         </div>
         <div class="flex-row background-color-white row-space-between" :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='switch'">
             <div class="height100 width200 flex-row center padding10">
-                <text class="text-align-center iconfont font-size35 text-color-white"   :value="(!disabled&&required)?decode('*'):decode('')"></text>
+                <text class="text-align-center iconfont font-size35 text-color-white"   :value="(!disabled&&required)?'*':''"></text>
                 <div class="width140 ">
                     <text class="text-align-center iconfont font-size35">{{label}}</text>
                 </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="flex-row background-color-white " :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='text'">
             <div class="height100 width200 flex-row center padding10">
-                <text class="text-align-center iconfont font-size35"   :style="{'color':requiredColor}" :value="(!disabled&&required)?decode('*'):decode('')"></text>
+                <text class="text-align-center iconfont font-size35"   :style="{'color':requiredColor}" :value="(!disabled&&required)?'*':''"></text>
                 <div class="width140 ">
                     <text class="text-align-center iconfont font-size35">{{label}}</text>
                 </div>
@@ -36,7 +36,7 @@
                 <text class="width450 font-size35">{{content}}</text>
             </div>
             <div class="height100  width70 flex-row row-center-left" v-if="rightIcon" @click="rightClick">
-                <text class=" text-align-center iconfont font-size45 text-color-gay" :value="decode(rightIcon)"></text>
+                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
             </div>
         </div>
         <div class="flex-row background-color-white  " :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='sms'">
@@ -59,7 +59,11 @@
 
 <script>
     var validate = require("../utils/validate");
+    import duiIcon from'./dui-icon';
     module.exports = {
+        components:{
+            duiIcon
+        },
         props: {
             formType:{
               type:String,
@@ -135,11 +139,6 @@
             }
         },
         mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
             this.$emit('input',this.inputValue);
             this.$emit('checkResult',this.checkResult);
         },

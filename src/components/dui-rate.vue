@@ -1,11 +1,15 @@
 <template>
     <div class="center flex-row">
-        <text v-for="(isFull,index) in list"  :value="isFull ? decode(selectRateIcon) : decode(rateIcon)" :style="{'color':disabled ? disabledColor : isFull ? color:voidColor,fontSize:size}" class="iconfont "  @click="onSelect(index)"></text>
+        <dui-icon v-for="(isFull,index) in list" :name="isFull ?selectRateIcon:rateIcon"  :iconStyle="{'color':disabled ? disabledColor : isFull ? color:voidColor,fontSize:size}"   @iconClick="onSelect(index)"></dui-icon>
     </div>
 </template>
 
 <script>
+    import duiIcon from'./dui-icon';
     module.exports = {
+        components:{
+            duiIcon
+        },
         props: {
             value: {
                 type: Number,
@@ -39,16 +43,9 @@
         },
         data() {
             return {
-                rateIcon:'&#xe64C',
-                selectRateIcon:'&#xe64B'
+                rateIcon:'&#xe68a;',
+                selectRateIcon:'&#xe689;'
             }
-        },
-        mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            })
         },
         computed: {
             list() {
@@ -56,13 +53,6 @@
             }
         },
         methods: {
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
-            },
             onSelect(index){
                 if (!this.disabled) {
                     this.value=index+1;

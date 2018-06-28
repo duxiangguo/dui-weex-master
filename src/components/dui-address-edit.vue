@@ -6,7 +6,6 @@
         <dui-field label="详细地址"  v-model="data.dictAddress" formType="input" placeholder="如街道、楼层、门牌号等" required="true"></dui-field>
         <dui-field label="邮政编码" v-model="data.Postcodes" formType="input" placeholder="邮政编码"></dui-field>
         <dui-field label="设为默认" formType="switch" @change="setDefault"></dui-field>
-
         <dui-address-selector :show="show" :province="province" :city="city" :area="area" :tabItems="tabItems" :currentTab="currentTab" @close="close" @selectArea="selectArea" @checkedArea="checkedArea" ></dui-address-selector>
         <dui-button @click="submit" :btnColor="addButtonInfo.btnColor" :disabled="addButtonInfo.disabled" :text="addButtonInfo.text" :textColor="addButtonInfo.textColor"></dui-button>
         <dui-button @click="deleteClick" v-if="showDelButton" :btnColor="delButtonInfo.btnColor" :disabled="delButtonInfo.disabled" :text="delButtonInfo.text" :textColor="delButtonInfo.textColor"></dui-button>
@@ -14,9 +13,9 @@
 </template>
 
 <script>
-    import duiField from './dui-field.vue';
-    import duiAddressSelector from './dui-address-selector.vue';
-    import duiButton from './dui-button.vue';
+    import duiField from './dui-field';
+    import duiAddressSelector from './dui-address-selector';
+    import duiButton from './dui-button';
     module.exports = {
         components:{
             duiField,duiAddressSelector,duiButton
@@ -127,7 +126,7 @@
                 }
             },
             deleteClick(){
-                this.$emit('deleteClick')
+                    this.$emit('deleteClick')
             },
             showMessage(message){
                 this.$notice.toast({

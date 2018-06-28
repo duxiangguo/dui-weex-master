@@ -2,11 +2,11 @@
     <div>
         <div class="flex-row"  :style="{'backgroundColor': background,'height':height}" v-if="show">
             <div  class="div-start center flex-row"  :style="{'height':height}" @click="onClick('centerClick')">
-                <text class="margin-right30 iconfont" :style="leftItem"  :value="decode(leftIcon)" v-if="leftIcon&&!scrollable" @click="onClick('leftClick')"></text>
+                <dui-icon  class="margin-right30" :iconStyle="leftItem" :name="leftIcon"  v-if="leftIcon&&!scrollable"  @iconClick="onClick('leftClick')"></dui-icon>
                 <text :style="titleStyle" ref="title" v-if="showText">{{title}} </text>
             </div>
             <div class="div-end center" :style="{'height':height}" @click="onClick('rightClick')">
-                <text class="iconfont" :style="rightItem" :value="decode(rightIcon)"></text>
+                <dui-icon :iconStyle="rightItem" :name="rightIcon"></dui-icon>
             </div>
         </div>
     </div>
@@ -14,7 +14,11 @@
 
 <script>
     const animation = weex.requireModule('animation')
+    import duiIcon from'./dui-icon';
     export default {
+        components:{
+            duiIcon
+        },
         props: {
             show:{
               type:Boolean,
@@ -38,7 +42,7 @@
             },
             leftIcon:{
                 type:String,
-                default:'&#xe66B;'
+                default:'&#xe694;'
             },
             leftItem:{
                 type:Object,
@@ -46,7 +50,7 @@
             },
             rightIcon:{
                 type:String,
-                default:'&#xe646;'
+                default:'&#xe6c9;'
             },
             rightItem:{
                 type:Object,
@@ -69,11 +73,6 @@
             }
         },
         mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
             if(this.scrollable){
                 let that = this;
                 setInterval(function () {
@@ -82,13 +81,6 @@
             }
         },
         methods: {
-            decode(fontCode){
-                if (/^&#x/.test(fontCode)) {
-                    return String.fromCharCode(fontCode.replace(/^&#x/, '0x').replace(/;$/, ''))
-                } else {
-                    return fontCode;
-                }
-            },
             onClick(itme){
                 this.$emit(itme);
             },
