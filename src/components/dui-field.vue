@@ -11,7 +11,7 @@
                 <input class="height100 width450 font-size35" :style="{'color':inputColor}" :maxlength="inputMaxlength" :placeholder="placeholder" :disabled="disabled" :type="inputType" :value="inputValue" @focus="focus" @input="input" @change="change" />
             </div>
             <div class="height100  width70 flex-row row-center-left" v-if="rightIcon" @click="rightClick">
-                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}" @iconClick="rightClick"></dui-icon>
             </div>
         </div>
         <div class="flex-row background-color-white row-space-between" :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='switch'">
@@ -36,7 +36,7 @@
                 <text class="width450 font-size35">{{content}}</text>
             </div>
             <div class="height100  width70 flex-row row-center-left" v-if="rightIcon" @click="rightClick">
-                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+                <dui-icon :name="rightIcon" size="45px" :iconStyle="{color:'#b2b2b2'}" @iconClick="rightClick"></dui-icon>
             </div>
         </div>
         <div class="flex-row background-color-white  " :class="[showTopBorder?'field-top-border':showBottomBorder?'field-bottom-border':'']" v-if="formType==='sms'">

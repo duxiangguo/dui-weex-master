@@ -5,7 +5,7 @@
                 <text>{{title}}</text>
                   <div class="flex-row center input-password-div">
                       <div class="flex1 center height100 input-password-div-border"  v-for="(item,index) in length">
-                          <dui-icon name="&#xe6c6;"  v-if="value.length>index"></dui-icon>
+                          <dui-icon name="&#xe6c6;"  v-if="value.length>index" size="35px"></dui-icon>
                       </div>
                   </div>
             </div>
@@ -15,7 +15,7 @@
                         <div class="flex1 center item-pay background-color-white"  v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetPayItemClick(item.value,indexs,index,DigitalPart)">
                             <div>
-                                <dui-icon :name="item.title"></dui-icon>
+                                <dui-icon :name="item.title" @iconClick="actionsheetPayItemClick(item.value,indexs,index,DigitalPart)"></dui-icon>
                             </div>
                         </div>
                     </div>
@@ -24,12 +24,12 @@
                         <div class="flex1 center item-pay background-color-white" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetPayItemClick(item.value,indexs,index,zero)">
                             <div>
-                                <dui-icon :name="item.title"></dui-icon>
+                                <dui-icon :name="item.title" @iconClick="actionsheetPayItemClick(item.value,indexs,index,zero)"></dui-icon>
                             </div>
                         </div>
                         <div class="flex1 center item-pay" @click="actionsheetPayItemClick('delete')">
                             <div>
-                                <dui-icon :name="rightButton"></dui-icon>
+                                <dui-icon :name="rightButton" @iconClick="actionsheetPayItemClick('delete')"></dui-icon>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
             },
             rightButton:{
                 type: String,
-                default: '&#xe90C'
+                default: '&#xe6c0'
             }
         },
         data: function () {
@@ -90,9 +90,9 @@
                 if (item === 'delete') {
                     let  _this =this;
                     _this.value = _this.value.slice(0, _this.value.length - 1);
-                    _this.rightButton='&#xe90E';
+                    _this.rightButton='&#xe6c5';
                     setTimeout(function () {
-                        _this.rightButton='&#xe90C'
+                        _this.rightButton='&#xe6c0'
                     }, 30);
                 } else {
                     if (this.value.length <this.length) {

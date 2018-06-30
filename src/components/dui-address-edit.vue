@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dui-field label="收货人"  v-model="data.consignee" formType="input" placeholder="收货人姓名" required="true" rightIcon="&#xe6B7;" @rightClick="checkContacts"></dui-field>
+        <dui-field label="收货人"  v-model="data.consignee" formType="input" placeholder="收货人姓名" required="true" rightIcon="&#xe64d;" @rightClick="checkContacts"></dui-field>
         <dui-field label="联系电话" v-model="data.telphone" formType="input" placeholder="手机或固定电话" inputType="number" required="true"></dui-field>
         <dui-field label="收件地区" formType="text" :content="data.address" @change="checkAddress" required="true"></dui-field>
         <dui-field label="详细地址"  v-model="data.dictAddress" formType="input" placeholder="如街道、楼层、门牌号等" required="true"></dui-field>
@@ -81,13 +81,6 @@
                 show:false
             }
         },
-        mounted(){
-            let domModule = weex.requireModule('dom');
-            domModule.addRule('fontFace', {
-                'fontFamily': "iconfont",
-                'src': 'url(\'bmlocal://iconfont/iconfont.ttf\')'
-            });
-        },
         methods: {
             checkAddress(){
                 this.show=true
@@ -99,7 +92,8 @@
                 this.$emit('getAddress',value)
             },
             checkedArea(items){
-                this.address=items[0].title+'-'+items[1].title+'-'+items[2].title
+                this.data.address=items[0].title+'-'+items[1].title+'-'+items[2].title;
+                this.data.addressId=items[0].value+'-'+items[1].value+'-'+items[2].value;
             },
             setDefault(value){
                 this.data.isDefault=value

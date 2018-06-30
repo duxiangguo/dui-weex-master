@@ -7,14 +7,14 @@
                         <div class="flex1 center item" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetItemClick(item.value,indexs,index,DigitalUpperPart)">
                             <div>
-                                <dui-icon :name="item.title"></dui-icon>
+                                <dui-icon :name="item.title" @iconClick="actionsheetItemClick(item.value,indexs,index,DigitalUpperPart)"></dui-icon>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="height200 flex1 center item "
                      @click="actionsheetItemClick('delete')">
-                    <dui-icon name="&#xe6c0" size="60px"></dui-icon>
+                    <dui-icon name="&#xe6c0" size="60px" @iconClick="actionsheetItemClick('delete')"></dui-icon>
                 </div>
             </div>
             <div  class="flex-row">
@@ -23,7 +23,7 @@
                         <div class="flex1 center item " v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
                              @click="actionsheetItemClick(item.value,indexs,index,DigitalLowerPart)">
                             <div>
-                                <dui-icon :name="item.title"></dui-icon>
+                                <dui-icon :name="item.title" @iconClick="actionsheetItemClick(item.value,indexs,index,DigitalLowerPart)"> </dui-icon>
                             </div>
                         </div>
                     </div>
@@ -32,25 +32,26 @@
                     <text  class="text-color-white" :style="closeButtonTextStyle" :value="closeButtonText"></text>
                 </div>
             </div>
-        </div>        <div>
-        <div class="flex-row" v-if="theme==='custom'">
-            <div >
-                <div class="row-center-bottom width750 height80">
-                    <div class="row-center-bottom height80" @click="closeNumberKeyboard()">
-                        <text class="text-color-blue font-size35 margin-right40" :style="closeButtonTextStyle" :value="closeButtonText" ></text>
+        </div>
+        <div>
+            <div class="flex-row" v-if="theme==='custom'">
+                <div >
+                    <div class="row-center-bottom width750 height80">
+                        <div class="row-center-bottom height80" @click="closeNumberKeyboard()">
+                            <text class="text-color-blue font-size35 margin-right40" :style="closeButtonTextStyle" :value="closeButtonText" ></text>
+                        </div>
                     </div>
-                </div>
-                <div class="flex-row height100 width750" v-for="(items,indexs) in DigitalPart">
-                    <div class="flex1 center item" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
-                         @click="actionsheetItemClick(item.value,indexs,index,DigitalPart)">
-                        <div>
-                            <dui-icon :name="item.title"></dui-icon>
+                    <div class="flex-row height100 width750" v-for="(items,indexs) in DigitalPart">
+                        <div class="flex1 center item" v-for="(item,index) in items" :class="[item.isChecked ? 'itemCheckedColor' : '']"
+                             @click="actionsheetItemClick(item.value,indexs,index,DigitalPart)">
+                            <div>
+                                <dui-icon :name="item.title" @iconClick="actionsheetItemClick(item.value,indexs,index,DigitalPart)"></dui-icon>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </dui-popup>
 </template>
@@ -102,7 +103,7 @@
                     {title:'9',value:'9',isChecked:false}]
                     ,[{title:'.',value:'.',isChecked:false}
                         ,{title:'0',value:'0',isChecked:false}
-                        ,{title:'&#xe90D',value:'close',isChecked:false}]],
+                        ,{title:'&#xe6c4',value:'close',isChecked:false}]],
                 DigitalPart:[[{title:'1',value:'1',isChecked:false}
                     ,{title:'2',value:'2',isChecked:false}
                     ,{title:'3',value:'3',isChecked:false}]
@@ -112,17 +113,19 @@
                         ,{title:'8',value:'8',isChecked:false}
                         ,{title:'9',value:'9',isChecked:false}] ,[{title:'.',value:'.',isChecked:false}
                         ,{title:'0',value:'0',isChecked:false}
-                        ,{title:'&#xe90E',value:'delete',isChecked:false}]],
+                        ,{title:'&#xe6c5',value:'delete',isChecked:false}]],
                 height:400
 
 
             }
         },
-        mounted(){
-            if(this.theme==='custom'){
-                this.height=480
-            }else{
-                this.height=400
+        watch: {
+            theme(value){
+                if(value==='custom'){
+                    this.height=480
+                }else{
+                    this.height=400
+                }
             }
         },
         methods: {

@@ -2,7 +2,7 @@
         <div class="width750 height100 flex-row dui-goods-div">
             <div class = "height100 flex1 center " v-for="items in leftItems" @click="leftItemsClick(items.leftClick)">
                 <div class="height100 center width115" >
-                    <dui-icon size="45px" :name="items.leftIcon" :iconStyle="{'color':items.leftIconColor}"></dui-icon>
+                    <dui-icon size="45px" :name="items.leftIcon" :iconStyle="{'color':items.leftIconColor}" @iconClick="leftItemsClick(items.leftClick)"></dui-icon>
                     <text :style="{'color':items.leftTitleColor}" >{{items.leftTitle}}</text>
                     <div class = "dui-goods-point-div background-color-white center" v-if="items.leftPointNumber>0">
                         <text class="font-size22 text-color-red">{{items.leftPointNumber}}</text>

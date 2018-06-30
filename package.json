@@ -1,7 +1,7 @@
 {
   "name": "dui-weex",
   "description": "dui-weex are component that is decoupled from the business",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "author":   {
       "name": "dxg",
       "email": "1169875686@qq.com"

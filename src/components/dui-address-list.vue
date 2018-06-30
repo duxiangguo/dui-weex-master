@@ -1,8 +1,8 @@
 <template>
     <div class="address-list-div">
         <div class="height150 address-item-div flex-row row-center-left"  v-for="(itmes,index) in list" >
-            <div  class="width150  center " @click="editAddress(itmes)">
-                <dui-icon :name="index===showIndex?'&#xe6cf':'&#xe664'"  :iconStyle="{'color':index===showIndex?color:voidColor}"></dui-icon>
+            <div  class="width150  center " @click="checkAddress(itmes)">
+                <dui-icon :name="index===showIndex?'&#xe6cf':'&#xe664'"  :iconStyle="{'color':index===showIndex?color:voidColor}" @iconClick="checkAddress(itmes)"></dui-icon>
             </div>
             <div @click="checkAddress(itmes,index)">
                 <div class="flex-row margin-bottom10 width450">
@@ -13,16 +13,16 @@
                 <text class="width450  text-lines2" >收货地址:{{itmes.address}}</text>
             </div>
             <div  class="width150  center " @click="editAddress(itmes)">
-                <dui-icon name="&#xe71a;"  :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+                <dui-icon name="&#xe71a;"  :iconStyle="{color:'#b2b2b2'}" @iconClick="editAddress(itmes)"></dui-icon>
             </div>
         </div>
         <div class="height100 address-add-div flex-row row-center-left" @click="addAddress">
             <div  class="width150 height100 center " >
-                <dui-icon name="&#xe6cf;"  :iconStyle="{color:'#5da3f6'}"></dui-icon>
+                <dui-icon name="&#xe6cf;"  :iconStyle="{color:'#5da3f6'}" @iconClick="addAddress"></dui-icon>
             </div>
             <text class="width450 font-size35 " >新增收货地址</text>
             <div  class="width150 height100 center " >
-                <dui-icon name="&#xe643" size="45px" :iconStyle="{color:'#b2b2b2'}"></dui-icon>
+                <dui-icon name="&#xe643" size="45px" :iconStyle="{color:'#b2b2b2'}" @iconClick="addAddress"></dui-icon>
             </div>
         </div>
     </div>

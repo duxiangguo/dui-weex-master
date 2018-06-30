@@ -17,11 +17,11 @@
         </div>
         <div class="row-center-left flex-row margin-left40">
             <div class=" center flex-row" >
-                <text class="iconfont"  :value="value===1 ? decode(selectRateIcon) : decode(rateIcon)" :style="{'color':value>=1 ? themeColor.highlightTitleColor:themeColor.pointInnerColor,'fontSize':1===value ? themeColor.highlightTitleSize:themeColor.pointSize}"></text>
+                <dui-icon :name="value===1 ? selectRateIcon: rateIcon" :iconStyle="{'color':value>=1 ? themeColor.highlightTitleColor:themeColor.pointInnerColor,'fontSize':1===value ? themeColor.highlightTitleSize:themeColor.pointSize}" ></dui-icon>
             </div>
             <div class=" center flex-row" v-for="(isFull,index) in _list" v-if='index<count-1'>
                 <div class="row-line"  :style="{'width':lineWidth,'backgroundColor':isFull ? themeColor.highlightTitleColor:themeColor.lineColor}"></div>
-                <text class="iconfont" :value="index===value-2  ? decode(selectRateIcon) : decode(rateIcon)" :style="{'color':isFull ? themeColor.highlightTitleColor:themeColor.pointInnerColor,'fontSize':index===value-2 ? themeColor.highlightTitleSize:themeColor.pointSize}"></text>
+                <dui-icon :name="index===value-2  ?selectRateIcon:rateIcon" :iconStyle="{'color':isFull ? themeColor.highlightTitleColor:themeColor.pointInnerColor,'fontSize':index===value-2 ? themeColor.highlightTitleSize:themeColor.pointSize}" ></dui-icon>
             </div>
         </div>
     </div>

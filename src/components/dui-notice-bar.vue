@@ -1,12 +1,14 @@
 <template>
     <div>
         <div class="flex-row"  :style="{'backgroundColor': background,'height':height}" v-if="show">
-            <div  class="div-start center flex-row"  :style="{'height':height}" @click="onClick('centerClick')">
-                <dui-icon  class="margin-right30" :iconStyle="leftItem" :name="leftIcon"  v-if="leftIcon&&!scrollable"  @iconClick="onClick('leftClick')"></dui-icon>
+            <div  class="center flex-row "  :style="{'height':height}" @click="onClick('centerClick')">
+                <dui-icon  class="margin-left20" :iconStyle="leftItem" :name="leftIcon"    @iconClick="onClick('leftClick')"></dui-icon>
+            </div>
+            <div  class="div-start center flex-row "  :style="{'height':height}" @click="onClick('centerClick')">
                 <text :style="titleStyle" ref="title" v-if="showText">{{title}} </text>
             </div>
             <div class="div-end center" :style="{'height':height}" @click="onClick('rightClick')">
-                <dui-icon :iconStyle="rightItem" :name="rightIcon"></dui-icon>
+                <dui-icon :iconStyle="rightItem" :name="rightIcon" @iconClick="onClick('rightClick')"></dui-icon>
             </div>
         </div>
     </div>
@@ -54,7 +56,7 @@
             },
             rightItem:{
                 type:Object,
-                default:{color:'#ff6600',fontSize:45}
+                default:{color:'#ff6600',fontSize:25}
             },
             rollingLength:{
                 type:Number,
@@ -72,12 +74,14 @@
                 showText:true
             }
         },
-        mounted(){
-            if(this.scrollable){
-                let that = this;
-                setInterval(function () {
-                    that.move()
-                }, 1000)
+        watch: {
+            scrollable(value){
+                if(value){
+                    let that = this;
+                     setInterval(function () {
+                        that.move()
+                    }, 1000)
+                }
             }
         },
         methods: {
